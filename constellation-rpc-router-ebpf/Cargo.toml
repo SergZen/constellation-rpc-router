@@ -1,0 +1,17 @@
+[package]
+name = "constellation-rpc-router-ebpf"
+version = "0.1.0"
+edition.workspace = true
+
+[dependencies]
+constellation-rpc-router-common = { path = "../constellation-rpc-router-common" }
+
+aya-ebpf = { workspace = true }
+aya-log-ebpf = { workspace = true }
+
+[build-dependencies]
+which = { workspace = true }
+
+[[bin]]
+name = "constellation-rpc-router"
+path = "src/main.rs"
