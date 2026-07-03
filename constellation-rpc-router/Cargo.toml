@@ -18,10 +18,14 @@ tokio = { workspace = true, features = [
     "macros",
     "rt",
     "rt-multi-thread",
+    "time",
     "net",
     "signal",
 ] }
 clap = { workspace = true, features = ["derive"] }
+rand = { workspace = true }
+xsk-rs = { workspace = true }
+
 [build-dependencies]
 anyhow = { workspace = true }
 aya-build = { workspace = true }
