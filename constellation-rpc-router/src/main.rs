@@ -104,10 +104,6 @@ async fn main() -> anyhow::Result<()> {
 
     let (mut fq, mut cq) = fq_cq.context("missing fill/completion queue")?;
 
-    unsafe {
-        fq.produce(&descs);
-    }
-
     let socket_fd = rx_q.fd().as_raw_fd();
 
     let mut xsk_map = XskMap::try_from(ebpf.map_mut("XSK_MAP").context("XSK_MAP not found")?)?;
@@ -139,7 +135,7 @@ async fn main() -> anyhow::Result<()> {
 
     let handle = tokio::task::spawn_blocking(move || {
         info!("Data Plane loop started");
-        let mut tx_scratch = [0u8; 128];
+        let mut tx_scratch = [0u8; 1514];
 
         while running_handle.load(std::sync::atomic::Ordering::Relaxed) {
             let rcvd = unsafe { rx_q.poll_and_consume(&mut descs, 100) };
